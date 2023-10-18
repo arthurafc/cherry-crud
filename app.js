@@ -22,11 +22,15 @@ app.get("", (request, response) => {
   response.send("cherry-crud");
 });
 
-/*
-app.get('/groups/:n', (request, response) => {
-  const n = request.params.n;
-  const answer = `${n}! = ${calcFactorial(n)}`
+app.get('/groups', (request, response) => {
+  const answer = functions.groups;
   
   response.send(answer);
 });
-*/
+
+app.get('/groups/:id', (request, response) => {
+  const id = request.params.id;
+  const answer = functions.groupMembers(id);
+  
+  response.send(answer);
+});

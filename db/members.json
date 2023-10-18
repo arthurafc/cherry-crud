@@ -1,0 +1,281 @@
+[
+  {
+    "group_id": 1,
+    "name": "Sakura",
+    "age": 25,
+    "role": "",
+    "firstBias": "",
+    "gotoBias": "Lucas",
+    "lineBias": "Lucas"
+  },
+  {
+    "group_id": 1,
+    "name": "Eunchae",
+    "age": 16,
+    "role": "Maknae",
+    "firstBias": "Lucas",
+    "gotoBias": "",
+    "lineBias": "Lucas"
+  },
+  {
+    "group_id": 1,
+    "name": "Chaewon",
+    "age": 23,
+    "role": "Leader",
+    "firstBias": "Arthur",
+    "gotoBias": "",
+    "lineBias": "Arthur"
+  },
+  {
+    "group_id": 1,
+    "name": "Yujin",
+    "age": 21,
+    "role": "",
+    "firstBias": "",
+    "gotoBias": "Arthur",
+    "lineBias": "Arthur"
+  },
+  {
+    "group_id": 1,
+    "name": "Kazuha",
+    "age": 20,
+    "role": "",
+    "firstBias": "",
+    "gotoBias": "",
+    "lineBias": "Arthur"
+  },
+  {
+    "group_id": 2,
+    "name": "Minji",
+    "age": 19,
+    "role": "Leader",
+    "firstBias": "",
+    "gotoBias": "Arthur",
+    "lineBias": "Arthur"
+  },
+  {
+    "group_id": 2,
+    "name": "Hanni",
+    "age": 18,
+    "role": "",
+    "firstBias": "Arthur",
+    "gotoBias": "",
+    "lineBias": "Arthur"
+  },
+  {
+    "group_id": 2,
+    "name": "Danielle",
+    "age": 18,
+    "role": "",
+    "firstBias": "",
+    "gotoBias": "Lucas",
+    "lineBias": "Lucas"
+  },
+  {
+    "group_id": 2,
+    "name": "Haerin",
+    "age": 17,
+    "role": "",
+    "firstBias": "Lucas",
+    "gotoBias": "",
+    "lineBias": "Lucas"
+  },
+  {
+    "group_id": 2,
+    "name": "Hyein",
+    "age": 15,
+    "role": "Maknae",
+    "firstBias": "",
+    "gotoBias": "",
+    "lineBias": ""
+  },
+  {
+    "group_id": 3,
+    "name": "Soyeon*",
+    "age": 25,
+    "role": "Leader",
+    "firstBias": "Arthur",
+    "gotoBias": "",
+    "lineBias": "Arthur"
+  },
+  {
+    "group_id": 3,
+    "name": "Minnie",
+    "age": 25,
+    "role": "",
+    "firstBias": "",
+    "gotoBias": "Arthur",
+    "lineBias": "Arthur"
+  },
+  {
+    "group_id": 3,
+    "name": "Soojin",
+    "age": 25,
+    "role": "",
+    "firstBias": "",
+    "gotoBias": "",
+    "lineBias": "Lucas"
+  },
+  {
+    "group_id": 3,
+    "name": "Miyeon",
+    "age": 26,
+    "role": "",
+    "firstBias": "Lucas",
+    "gotoBias": "",
+    "lineBias": "Lucas"
+  },
+  {
+    "group_id": 3,
+    "name": "Yuqi",
+    "age": 24,
+    "role": "",
+    "firstBias": "",
+    "gotoBias": "Lucas",
+    "lineBias": "Lucas"
+  },
+  {
+    "group_id": 3,
+    "name": "Shuhua",
+    "age": 23,
+    "role": "Maknae",
+    "firstBias": "",
+    "gotoBias": "",
+    "lineBias": "Arthur"
+  },
+  {
+    "group_id": 4,
+    "name": "Nana",
+    "age": 22,
+    "role": "Leader",
+    "firstBias": "Arthur",
+    "gotoBias": "",
+    "lineBias": "Arthur"
+  },
+  {
+    "group_id": 4,
+    "name": "Wooyeon",
+    "age": 20,
+    "role": "",
+    "firstBias": "Lucas",
+    "gotoBias": "",
+    "lineBias": "Lucas"
+  },
+  {
+    "group_id": 4,
+    "name": "Sora",
+    "age": 20,
+    "role": "",
+    "firstBias": "",
+    "gotoBias": "Arthur",
+    "lineBias": "Arthur"
+  },
+  {
+    "group_id": 4,
+    "name": "Lucy",
+    "age": 19,
+    "role": "",
+    "firstBias": "",
+    "gotoBias": "",
+    "lineBias": ""
+  },
+  {
+    "group_id": 4,
+    "name": "Minseo",
+    "age": 19,
+    "role": "Maknae",
+    "firstBias": "",
+    "gotoBias": "Lucas",
+    "lineBias": "Lucas"
+  },
+  {
+    "group_id": 5,
+    "name": "Karina",
+    "age": 23,
+    "role": "Leader",
+    "firstBias": "Arthur",
+    "gotoBias": "",
+    "lineBias": "Arthur"
+  },
+  {
+    "group_id": 5,
+    "name": "Giselle",
+    "age": 22,
+    "role": "",
+    "firstBias": "",
+    "gotoBias": "",
+    "lineBias": "Arthur"
+  },
+  {
+    "group_id": 5,
+    "name": "Winter",
+    "age": 21,
+    "role": "",
+    "firstBias": "Lucas",
+    "gotoBias": "",
+    "lineBias": "Lucas"
+  },
+  {
+    "group_id": 5,
+    "name": "Ningning",
+    "age": 20,
+    "role": "Maknae",
+    "firstBias": "",
+    "gotoBias": "Arthur",
+    "lineBias": "Arthur"
+  },
+  {
+    "group_id": 6,
+    "name": "Sumin",
+    "age": 21,
+    "role": "Leader",
+    "firstBias": "",
+    "gotoBias": "",
+    "lineBias": "Lucas"
+  },
+  {
+    "group_id": 6,
+    "name": "Sieun",
+    "age": 22,
+    "role": "",
+    "firstBias": "Arthur",
+    "gotoBias": "",
+    "lineBias": "Arthur"
+  },
+  {
+    "group_id": 6,
+    "name": "Isa",
+    "age": 21,
+    "role": "",
+    "firstBias": "",
+    "gotoBias": "",
+    "lineBias": "Arthur"
+  },
+  {
+    "group_id": 6,
+    "name": "Seeun",
+    "age": 20,
+    "role": "",
+    "firstBias": "Lucas",
+    "gotoBias": "",
+    "lineBias": "Lucas"
+  },
+  {
+    "group_id": 6,
+    "name": "Yoon",
+    "age": 19,
+    "role": "",
+    "firstBias": "",
+    "gotoBias": "Arthur",
+    "lineBias": "Arthur"
+  },
+  {
+    "group_id": 6,
+    "name": "J",
+    "age": 18,
+    "role": "Maknae",
+    "firstBias": "",
+    "gotoBias": "Lucas",
+    "lineBias": "Lucas"
+  }
+]

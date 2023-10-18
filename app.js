@@ -5,7 +5,7 @@ app.use(express.json());
 const config = require('./config.js');
 const PORT = config.PORT;
 
-const functions = require("functions.js");
+const functions = require("./functions");
 
 app.get("/status", (request, response) => {
   const status = {
@@ -16,6 +16,10 @@ app.get("/status", (request, response) => {
 
 app.listen(PORT, () => {
   console.log("Server Listening on PORT:", PORT);
+});
+
+app.get("", (request, response) => {
+  response.send("cherry-crud");
 });
 
 /*

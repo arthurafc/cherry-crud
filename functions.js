@@ -6,14 +6,14 @@ const rawData2 = fs.readFileSync('./db/members.json');
 const members = JSON.parse(rawData2);
 
 function groupMembers(id) {
-    let arr = [];
+    let group = [];
     members.forEach(membersItr => {
         if (membersItr.group_id == id) {
-            arr.push(membersItr.name);
+            group.push(membersItr.name);
         }
     });
 
-    return arr;
+    return group;
 }
 
 module.exports = { groups, groupMembers };

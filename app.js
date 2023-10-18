@@ -23,14 +23,14 @@ app.get("", (request, response) => {
 });
 
 app.get('/groups', (request, response) => {
-  const answer = functions.groups;
+  const groups = functions.groups;
   
-  response.send(answer);
+  response.send(groups);
 });
 
 app.get('/groups/:id', (request, response) => {
   const id = request.params.id;
-  const answer = functions.groupMembers(id);
+  const groupMembers = functions.groupMembers(id);
   
-  response.send(answer);
+  response.send(groupMembers);
 });

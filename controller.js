@@ -5,77 +5,46 @@ exports.getAllTeams = (req, res, next) => {
   conn.query("SELECT * FROM teams", function (err, data, fields) {
     if (err) return next(new AppError(err));
     res.status(200).json({
-      status: "success",
-      length: data ? data.length : undefined,
       data: data,
     });
   });
 };
 
-exports.createTeam = (req, res, next) => {
-  if (!req.body) return next(new AppError("No form data found", 404));
-  const values = [req.body.name, "pending"];
-  conn.query(
-    "INSERT INTO teams (name) VALUES(?)",
-    [values],
-    function (err, data, fields) {
-      if (err) return next(new AppError(err, 500));
-      res.status(201).json({
-        status: "success",
-        message: "team created!",
-      });
-    }
-  );
-};
-
 exports.getTeam = (req, res, next) => {
-  if (!req.params.id) {
-    return next(new AppError("No todo id found", 404));
-  }
   conn.query(
     "SELECT * FROM teams WHERE id = ?",
-    [req.params.id],
+    [req.params.teamId],
     function (err, data, fields) {
       if (err) return next(new AppError(err, 500));
       res.status(200).json({
-        status: "success",
-        length: data ? data.length : undefined,
         data: data,
       });
     }
   );
 };
 
-exports.updateTeam = (req, res, next) => {
-  if (!req.params.id) {
-    return next(new AppError("No todo id found", 404));
-  }
+exports.getAllMembersInTeam = (req, res, next) => {
   conn.query(
-    "UPDATE teams SET name='updated team' WHERE id=?",
-    [req.params.id],
+    "SELECT * FROM members WHERE group_id = ?",
+    [req.params.teamId],
     function (err, data, fields) {
       if (err) return next(new AppError(err, 500));
-      res.status(201).json({
-        status: "success",
-        message: "team updated!",
+      res.status(200).json({
+        data: data,
       });
     }
   );
 };
 
-exports.deleteTeam = (req, res, next) => {
-  if (!req.params.id) {
-    return next(new AppError("No todo id found", 404));
-  }
+exports.getMemberInTeam = (req, res, next) => {
   conn.query(
-    "DELETE FROM teams WHERE id=?",
-    [req.params.id],
-    function (err, fields) {
+    "SELECT * FROM members WHERE group_id = ? AND id = ?",
+    [req.params.teamId, req.params.memberId],
+    function (err, data, fields) {
       if (err) return next(new AppError(err, 500));
-      res.status(201).json({
-        status: "success",
-        message: "team deleted!",
+      res.status(200).json({
+        data: data,
       });
     }
   );
- }
+};

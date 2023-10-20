@@ -1,15 +1,15 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 app.use(express.json());
 
-const config = require('./config.js');
+const config = require("./config");
 const PORT = config.PORT;
 
 const functions = require("./functions");
 
 app.get("/status", (request, response) => {
   const status = {
-    "Status": "Running"
+    Status: "Running",
   };
   response.send(status);
 });
@@ -22,15 +22,15 @@ app.get("", (request, response) => {
   response.send("cherry-crud");
 });
 
-app.get('/groups', (request, response) => {
-  const groups = functions.groups;
-  
-  response.send(groups);
+app.get("/teams", (request, response) => {
+  const teams = functions.teams;
+  response.send(teams);
 });
 
-app.get('/groups/:id', (request, response) => {
+
+app.get('/teams/:id', (request, response) => {
   const id = request.params.id;
-  const groupMembers = functions.groupMembers(id);
-  
-  response.send(groupMembers);
+  const teamMembers = functions.teamMembers(id);
+
+  response.send(teamMembers);
 });

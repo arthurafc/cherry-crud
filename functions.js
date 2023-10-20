@@ -1,9 +1,8 @@
-const fs = require('fs');
-const rawData = fs.readFileSync('./db/groups.json');
-const groups = JSON.parse(rawData);
+const conn = require("./db.js");
 
-const rawData2 = fs.readFileSync('./db/members.json');
-const members = JSON.parse(rawData2);
+const groups = 0;
+
+const members = 0;
 
 function groupMembers(id) {
     let group = [];

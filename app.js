@@ -23,12 +23,10 @@ app.get("", (request, response) => {
 });
 
 app.get("/teams", (request, response) => {
-  const teams = functions.teams;
-  response.send(teams);
+  response.send("teste");
 });
 
-
-app.get('/teams/:id', (request, response) => {
+app.get("/teams/:id", (request, response) => {
   const id = request.params.id;
   const teamMembers = functions.teamMembers(id);
 

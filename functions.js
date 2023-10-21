@@ -1,18 +1,18 @@
-const conn = require("./db.js");
+const conn = require("./db");
 
-const groups = 0;
+const teams = 0;
 
 const members = 0;
 
-function groupMembers(id) {
-    let group = [];
-    members.forEach(membersItr => {
-        if (membersItr.group_id == id) {
-            group.push(membersItr.name);
-        }
-    });
+function teamMembers(id) {
+  let team = [];
+  members.forEach((membersItr) => {
+    if (membersItr.team_id == id) {
+      team.push(membersItr.name);
+    }
+  });
 
-    return group;
+  return team;
 }
 
-module.exports = { groups, groupMembers };
+module.exports = { teams, teamMembers };

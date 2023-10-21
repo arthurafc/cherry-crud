@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 app.use(express.json());
-
+const conn = require("./db");
 const config = require("./config");
 const PORT = config.PORT;
 
@@ -23,12 +23,25 @@ app.get("", (request, response) => {
 });
 
 app.get("/teams", (request, response) => {
-  response.send("teste");
+  conn.query("SELECT * FROM teams", function (error, teams) {
+    if (error) response.send("error");;
+    response.send(teams);
+  });
 });
 
 app.get("/teams/:id", (request, response) => {
-  const id = request.params.id;
-  const teamMembers = functions.teamMembers(id);
+  teamID = request.params.id;
+  conn.query("SELECT * FROM members WHERE group_id = ?", teamID, function (error, members) {
+    if (error) response.send("error");
+    response.send(members);
+  });
+});
 
-  response.send(teamMembers);
+app.get("/teams/:teamID/:memID", (request, response) => {
+  teamID = request.params.teamID;
+  memID = request.params.memID;
+  conn.query("SELECT * FROM members WHERE group_id = ? AND id = ?", [teamID, memID], function (error, members) {
+    if (error) response.send("error");
+    response.send(members);
+  });
 });

@@ -40,11 +40,11 @@ app.get("/teams/:id", (request, response) => {
   });
 });
 
-app.get("/teams/:teamID/:memID", (request, response) => {
+app.get("/teams/:teamID/:memIndex", (request, response) => {
   teamID = request.params.teamID;
-  memID = request.params.memID;
-  conn.query("SELECT * FROM members WHERE group_id = ? AND id = ?", [teamID, memID], function (error, members) {
+  memIndex = request.params.memIndex;
+  conn.query("SELECT * FROM members WHERE group_id = ? ORDER BY id", teamID, function (error, members) {
     if (error) response.send("error");
-    response.send(members);
+    response.send(members[memIndex-1]);
   });
 });

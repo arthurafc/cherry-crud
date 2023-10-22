@@ -4,6 +4,7 @@ app.use(express.json());
 const conn = require("./db");
 const config = require("./config");
 const PORT = config.PORT;
+const { getTeams } = require('./functions');
 
 const functions = require("./functions");
 
@@ -22,11 +23,13 @@ app.get("", (request, response) => {
   response.send("cherry-crud");
 });
 
-app.get("/teams", (request, response) => {
-  conn.query("SELECT * FROM teams", function (error, teams) {
-    if (error) response.send("error");;
+app.get("/teams", async function (request, response) {
+  try {
+    const teams = await getTeams();
     response.send(teams);
-  });
+  } catch(error) {
+    response.send([]);
+  }
 });
 
 app.get("/teams/:id", (request, response) => {

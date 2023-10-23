@@ -15,7 +15,12 @@ const getTeams = async () => {
   return await executeQuery("SELECT * FROM teams");
 }
 
+const getMembers = async (teamID) => {
+  return await executeQuery("SELECT * FROM members WHERE group_id = " + teamID);
+}
+
 module.exports = {
   executeQuery,
-  getTeams
+  getTeams,
+  getMembers
 };

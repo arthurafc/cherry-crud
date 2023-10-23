@@ -4,7 +4,7 @@ app.use(express.json());
 const conn = require("./db");
 const config = require("./config");
 const PORT = config.PORT;
-const { getTeams } = require('./functions');
+const { getTeams, getMembers } = require('./functions');
 
 const functions = require("./functions");
 
@@ -32,19 +32,23 @@ app.get("/teams", async function (request, response) {
   }
 });
 
-app.get("/teams/:id", (request, response) => {
+app.get("/teams/:id", async function (request, response) {
   teamID = request.params.id;
-  conn.query("SELECT * FROM members WHERE group_id = ?", teamID, function (error, members) {
-    if (error) response.send("error");
+  try {
+    const members = await getMembers(teamID);
     response.send(members);
-  });
+  } catch (error) {
+    response.send([]);
+  }
 });
 
-app.get("/teams/:teamID/:memIndex", (request, response) => {
+app.get("/teams/:teamID/:memIndex", async function (request, response) {
   teamID = request.params.teamID;
   memIndex = request.params.memIndex;
-  conn.query("SELECT * FROM members WHERE group_id = ? ORDER BY id", teamID, function (error, members) {
-    if (error) response.send("error");
+  try {
+    const members = await getMembers(teamID);
     response.send(members[memIndex-1]);
-  });
+  } catch (error) {
+    response.send([]);
+  }
 });

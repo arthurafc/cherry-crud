@@ -1,19 +1,31 @@
-const fs = require('fs');
-const rawData = fs.readFileSync('./db/groups.json');
-const groups = JSON.parse(rawData);
+const conn = require("./db");
 
-const rawData2 = fs.readFileSync('./db/members.json');
-const members = JSON.parse(rawData2);
-
-function groupMembers(id) {
-    let group = [];
-    members.forEach(membersItr => {
-        if (membersItr.group_id == id) {
-            group.push(membersItr.name);
-        }
+const executeQuery = (query) => {
+  return new Promise((resolve, reject) => {
+    conn.query(query, (error, results) => {
+      if (error) {
+        return reject(error);
+      }
+      return resolve(results);
     });
+  });
+};
 
-    return group;
+const getTeams = async () => {
+  return await executeQuery(`SELECT * FROM teams`, []);
 }
 
-module.exports = { groups, groupMembers };
+const getMembers = async (teamID) => {
+  return await executeQuery(`SELECT * FROM members WHERE group_id = ${teamID}`);
+}
+
+const postTeam = async (newTeam) => {
+  return await executeQuery(`INSERT INTO teams (name) VALUES ('${newTeam}')`);
+}
+
+module.exports = {
+  executeQuery,
+  getTeams,
+  getMembers,
+  postTeam
+};

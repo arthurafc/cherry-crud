@@ -12,7 +12,7 @@ const executeQuery = (query) => {
 };
 
 const getTeams = async () => {
-  return await executeQuery(`SELECT * FROM teams`, []);
+  return await executeQuery(`SELECT * FROM teams`);
 }
 
 const getMembers = async (teamID) => {
@@ -23,9 +23,29 @@ const postTeam = async (newTeam) => {
   return await executeQuery(`INSERT INTO teams (name) VALUES ('${newTeam}')`);
 }
 
+const postMembers = async (teamID, memberName) => {
+  return await executeQuery(`INSERT INTO members (group_id, name) VALUES (${teamID}, '${memberName}')`);
+}
+
+const getTeamByName = async (teamName) => {
+  return await executeQuery(`SELECT * FROM teams WHERE name = '${teamName}'`);
+}
+
+const getTeamByID = async (teamID) => {
+  return await executeQuery(`SELECT * FROM teams WHERE id = ${teamID}`);
+}
+
+const getMemberByNameAndID = async (teamID, memberName) => {
+  return await executeQuery(`SELECT * FROM members WHERE group_id = ${teamID} AND name = '${memberName}'`);
+}
+
 module.exports = {
   executeQuery,
   getTeams,
   getMembers,
-  postTeam
+  postTeam,
+  postMembers,
+  getTeamByName,
+  getTeamByID,
+  getMemberByNameAndID
 };

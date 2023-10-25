@@ -28,7 +28,7 @@ const postMembers = async (teamID, memberName) => {
 }
 
 const getTeamByName = async (teamName) => {
-  return await executeQuery(`SELECT * FROM teams WHERE name = '${teamName}'`);
+  return await executeQuery(`SELECT * FROM teams WHERE name LIKE '%${teamName}%'`);
 }
 
 const getTeamByID = async (teamID) => {

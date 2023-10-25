@@ -1,7 +1,7 @@
 {
-  "name": "abc",
+  "name": "cherry-crud",
   "version": "0.0.1",
-  "description": "my server",
+  "description": "cherry-crud server",
   "scripts": {
     "start": "nodemon ./app.js"
   },

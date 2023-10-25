@@ -51,7 +51,7 @@ app.get("/teams/:teamID/:memIndex", async function (request, response) {
   }
 });
 
-app.post("/newTeam", async function (request, response) {
+app.post("/new-teams", async function (request, response) {
   const newTeam = request.body;
   if (await functions.getTeamByName(newTeam.name) != 0) {
     return response.send(`${newTeam.name} has already been inserted.`);
@@ -64,13 +64,13 @@ app.post("/newTeam", async function (request, response) {
   }
 });
 
-app.post("/newMembers", async function (request, response) {
+app.post("/new-members", async function (request, response) {
   const newMembers = request.body;
   // const newMembersJSON = request.body;
   // const newMembers = newMembersJSON.map(({ name, team_id }) => [name, team_id]);
   try {
     if (await functions.getTeamByID(newMembers.team_id) == 0) {
-      return response.send(`Team ID ${newMembers.team_id} not recognized.`);
+      return response.send(`Team ID ${newMembers.team_id} not found.`);
     }
     if (await functions.getMemberByNameAndID(newMembers.team_id, newMembers.name) != 0) {
       return response.send(`${newMembers.name} has already been inserted to Team ID ${newMembers.team_id}.`);

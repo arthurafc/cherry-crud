@@ -53,7 +53,7 @@ app.get("/teams/:teamID/:memIndex", async function (request, response) {
 
 app.post("/new-teams", async function (request, response) {
   const newTeam = request.body;
-  if (await functions.getTeamByName(newTeam.name) != 0) {
+  if ((await functions.getTeamByName(newTeam.name)) != 0) {
     return response.send(`${newTeam.name} has already been inserted.`);
   }
   try {
@@ -65,23 +65,33 @@ app.post("/new-teams", async function (request, response) {
 });
 
 app.post("/new-members", async function (request, response) {
-  const newMembers = request.body;
-  // const newMembersJSON = request.body;
-  // const newMembers = newMembersJSON.map(({ name, team_id }) => [name, team_id]);
-  try {
-    if (await functions.getTeamByID(newMembers.team_id) == 0) {
-      return response.send(`Team ID ${newMembers.team_id} not found.`);
+  const newMembersJSON = request.body;
+  const newMembersNames = newMembersJSON.map((item) => item.name);
+  const newMembersTeamsIDs = newMembersJSON.map((item) => item.team_id);
+  const results = [];
+  for (let index = 0; index < newMembersNames.length; index++) {
+    try {
+      if ((await functions.getTeamByID(newMembersTeamsIDs[index])) == 0) {
+        results.push(`Team ID ${newMembersTeamsIDs[index]} not found.`);
+      }
+      if (
+        (await functions.getMemberByNameAndID(
+          newMembersTeamsIDs[index],
+          newMembersNames[index]
+        )) != 0
+      ) {
+        results.push(
+          `${newMembersNames[index]} has already been inserted to Team ID ${newMembersTeamsIDs[index]}.`
+        );
+      }
+    } catch (error) {
+      results.push("Bad data.");
     }
-    if (await functions.getMemberByNameAndID(newMembers.team_id, newMembers.name) != 0) {
-      return response.send(`${newMembers.name} has already been inserted to Team ID ${newMembers.team_id}.`);
-    }    
-  } catch (error) {
-    return response.send(`Bad data.`);
+    try {
+      functions.postMembers(newMembersTeamsIDs[index], newMembersNames[index]);
+    } catch (error) {
+      results.push("Error posting members.");
+    }
   }
-  try {
-    functions.postMembers(newMembers.team_id, newMembers.name);
-    return response.send(newMembers);
-  } catch (error) {
-    response.send("Error posting member.");
-  }  
+  response.json(results);
 });

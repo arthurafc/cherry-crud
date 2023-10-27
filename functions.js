@@ -23,8 +23,8 @@ const postTeam = async (newTeam) => {
   return await executeQuery(`INSERT INTO teams (name) VALUES ('${newTeam}')`);
 }
 
-const postMembers = async (teamID, memberName) => {
-  return await executeQuery(`INSERT INTO members (group_id, name) VALUES (${teamID}, '${memberName}')`);
+const postMember = async (member) => {
+  return await executeQuery(`INSERT INTO members (group_id, name) VALUES (${member.team_id}, '${member.name}')`);
 }
 
 const getTeamByName = async (teamName) => {
@@ -36,6 +36,7 @@ const getTeamByID = async (teamID) => {
 }
 
 const getMemberByNameAndID = async (teamID, memberName) => {
+  console.log(`SELECT * FROM members WHERE group_id = ${teamID} AND name = '${memberName}'`);
   return await executeQuery(`SELECT * FROM members WHERE group_id = ${teamID} AND name = '${memberName}'`);
 }
 
@@ -44,7 +45,7 @@ module.exports = {
   getTeams,
   getMembers,
   postTeam,
-  postMembers,
+  postMember,
   getTeamByName,
   getTeamByID,
   getMemberByNameAndID

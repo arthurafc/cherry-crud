@@ -71,37 +71,70 @@ app.post("/new-teams", async function (request, response) {
   response.send(requestsUpdates);
 });
 
+// app.post("/new-members", async function (request, response) {
+//   const newMembersJSON = request.body;
+//   const newMembersNames = newMembersJSON.map((membersInfo) => membersInfo.name);
+//   const newMembersTeamsIDs = newMembersJSON.map(
+//     (membersInfo) => membersInfo.team_id
+//   );
+//   const requestsUpdates = [];
+//   for (let index = 0; index < newMembersNames.length; index++) {
+//     try {
+//       if ((await functions.getTeamByID(newMembersTeamsIDs[index])) == 0) {
+//         requestsUpdates.push(`Team ID ${newMembersTeamsIDs[index]} not found.`);
+//       }
+//       if (
+//         (await functions.getMemberByNameAndID(
+//           newMembersTeamsIDs[index],
+//           newMembersNames[index]
+//         )) != 0
+//       ) {
+//         requestsUpdates.push(
+//           `${newMembersNames[index]} has already been inserted to Team ID ${newMembersTeamsIDs[index]}.`
+//         );
+//         continue;
+//       }
+//     } catch (error) {
+//       requestsUpdates.push(`Bad data from ${index} resquest.`);
+//     }
+//     try {
+//       functions.postMembers(newMembersTeamsIDs[index], newMembersNames[index]);
+//       requestsUpdates.push(`${newMembersNames[index]} posted.`);
+//     } catch (error) {
+//       requestsUpdates.push("Error posting members.");
+//     }
+//   }
+//   response.send(requestsUpdates);
+// });
+
 app.post("/new-members", async function (request, response) {
-  const newMembersJSON = request.body;
-  const newMembersNames = newMembersJSON.map((membersInfo) => membersInfo.name);
-  const newMembersTeamsIDs = newMembersJSON.map(
-    (membersInfo) => membersInfo.team_id
-  );
-  const requestsUpdates = [];
-  for (let index = 0; index < newMembersNames.length; index++) {
-    try {
-      if ((await functions.getTeamByID(newMembersTeamsIDs[index])) == 0) {
-        requestsUpdates.push(`Team ID ${newMembersTeamsIDs[index]} not found.`);
-      }
-      if (
-        (await functions.getMemberByNameAndID(
-          newMembersTeamsIDs[index],
-          newMembersNames[index]
-        )) != 0
-      ) {
-        requestsUpdates.push(
-          `${newMembersNames[index]} has already been inserted to Team ID ${newMembersTeamsIDs[index]}.`
-        );
-      }
-    } catch (error) {
-      requestsUpdates.push(`Bad data from ${index} resquest.`);
+  try {
+    const body = request.body;
+
+    if (body instanceof Array) {
+      body.forEach(async (member) => {
+        await createMember(member);
+      });
+    } else {
+      await createMember(body);
     }
-    try {
-      functions.postMembers(newMembersTeamsIDs[index], newMembersNames[index]);
-      requestsUpdates.push(`${newMembersNames[index]} posted.`);
-    } catch (error) {
-      requestsUpdates.push("Error posting members.");
-    }
+
+    response.send("Created.");
+  } catch(error) {
+    response.send(error.message);
   }
-  response.send(requestsUpdates);
 });
+
+async function createMember(member) {
+  const team = await functions.getTeamByID(member.team_id);
+  if (team.length === 0) {
+    throw new Error(`Team ID ${member.team_id} not found.`);
+  }
+
+  const checkIfMemberExists = (await functions.getMemberByNameAndID(member.team_id, member.name)).length > 0;
+  if (checkIfMemberExists) {
+    throw new Error(`${member.name} has already been inserted to Team ID ${member.team_id}.`);
+  }
+
+  await functions.postMember(member);
+}

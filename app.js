@@ -41,8 +41,8 @@ app.get("/teams/:id", async function (request, response) {
 });
 
 app.get("/teams/:teamID/:memIndex", async function (request, response) {
-  teamID = request.params.teamID;
-  memIndex = request.params.memIndex;
+  const teamID = request.params.teamID;
+  const memIndex = request.params.memIndex;
   try {
     const members = await functions.getMembers(teamID);
     response.send(members[memIndex - 1]);
@@ -52,27 +52,36 @@ app.get("/teams/:teamID/:memIndex", async function (request, response) {
 });
 
 app.post("/new-teams", async function (request, response) {
-  const newTeam = request.body;
-  if ((await functions.getTeamByName(newTeam.name)) != 0) {
-    return response.send(`${newTeam.name} has already been inserted.`);
+  const newTeamsJSON = request.body;
+  const newTeamsNames = newTeamsJSON.map((teamsInfo) => teamsInfo.name);
+  const requestsUpdates = [];
+  for (let index = 0; index < newTeamsNames.length; index++) {
+    if ((await functions.getTeamByName(newTeamsNames[index])) != 0) {
+      requestsUpdates.push(
+        `${newTeamsNames[index]} has already been inserted.`
+      );
+    }
+    try {
+      functions.postTeam(newTeamsNames[index]);
+      requestsUpdates.push(`${newTeamsNames[index]} posted.`);
+    } catch (error) {
+      requestsUpdates.push(`Error posting ${newTeamsNames[index]}.`);
+    }
   }
-  try {
-    functions.postTeam(newTeam.name);
-    response.send(newTeam);
-  } catch (error) {
-    response.send("Error posting team.");
-  }
+  response.send(requestsUpdates);
 });
 
 app.post("/new-members", async function (request, response) {
   const newMembersJSON = request.body;
-  const newMembersNames = newMembersJSON.map((item) => item.name);
-  const newMembersTeamsIDs = newMembersJSON.map((item) => item.team_id);
-  const results = [];
+  const newMembersNames = newMembersJSON.map((membersInfo) => membersInfo.name);
+  const newMembersTeamsIDs = newMembersJSON.map(
+    (membersInfo) => membersInfo.team_id
+  );
+  const requestsUpdates = [];
   for (let index = 0; index < newMembersNames.length; index++) {
     try {
       if ((await functions.getTeamByID(newMembersTeamsIDs[index])) == 0) {
-        results.push(`Team ID ${newMembersTeamsIDs[index]} not found.`);
+        requestsUpdates.push(`Team ID ${newMembersTeamsIDs[index]} not found.`);
       }
       if (
         (await functions.getMemberByNameAndID(
@@ -80,18 +89,19 @@ app.post("/new-members", async function (request, response) {
           newMembersNames[index]
         )) != 0
       ) {
-        results.push(
+        requestsUpdates.push(
           `${newMembersNames[index]} has already been inserted to Team ID ${newMembersTeamsIDs[index]}.`
         );
       }
     } catch (error) {
-      results.push("Bad data.");
+      requestsUpdates.push(`Bad data from ${index} resquest.`);
     }
     try {
       functions.postMembers(newMembersTeamsIDs[index], newMembersNames[index]);
+      requestsUpdates.push(`${newMembersNames[index]} posted.`);
     } catch (error) {
-      results.push("Error posting members.");
+      requestsUpdates.push("Error posting members.");
     }
   }
-  response.json(results);
+  response.send(requestsUpdates);
 });

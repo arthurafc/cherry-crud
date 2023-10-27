@@ -53,6 +53,7 @@ app.get("/teams/:teamID/:memIndex", async function (request, response) {
 
 app.post("/new-teams", async function (request, response) {
   const newTeamsJSON = request.body;
+  console.log(newTeamsJSON);
   const newTeamsNames = newTeamsJSON.map((teamsInfo) => teamsInfo.name);
   const requestsUpdates = [];
   for (let index = 0; index < newTeamsNames.length; index++) {

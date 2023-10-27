@@ -1,8 +1,8 @@
 const conn = require("./db");
 
-const executeQuery = (query) => {
+const executeQuery = (query, values = []) => {
   return new Promise((resolve, reject) => {
-    conn.query(query, (error, results) => {
+    conn.query(query, values, (error, results) => {
       if (error) {
         return reject(error);
       }
@@ -16,7 +16,7 @@ const getTeams = async () => {
 }
 
 const getMembers = async (teamID) => {
-  return await executeQuery(`SELECT * FROM members WHERE group_id = ${teamID}`);
+  return await executeQuery(`SELECT * FROM members WHERE group_id = ?`, [teamID]);
 }
 
 const postTeam = async (newTeam) => {
@@ -24,7 +24,7 @@ const postTeam = async (newTeam) => {
 }
 
 const postMember = async (member) => {
-  return await executeQuery(`INSERT INTO members (group_id, name) VALUES (${member.team_id}, '${member.name}')`);
+  return await executeQuery(`INSERT INTO members (group_id, name) VALUES (?, ?)`, [member.team_id, member.name]);
 }
 
 const getTeamByName = async (teamName) => {
